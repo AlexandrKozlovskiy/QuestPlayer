@@ -52,28 +52,24 @@ class LocalGameRepository {
         ArrayList<GameStockItem> items = new ArrayList<>();
         for (GameFolder folder : getGameFolders(gameDirs)) {
             String info = getGameInfo(folder);
-            boolean pack = folder.gameFiles.size() > 1;
-
-            for (DocumentFile file : folder.gameFiles) {
-                GameStockItem item;
-                if (info != null) {
-                    item = parseGameInfo(info);
-                } else {
-                    String name = folder.dir.getName();
-                    item = new GameStockItem();
-                    item.title = name;
-                    item.gameId = name;
-                }
-                if (pack) {
-                    String name = file.getName();
-                    item.title += " (" + name + ")";
-                    item.gameId += " (" + name + ")";
-                }
-                item.downloaded = true;
-                item.localDirUri = folder.dir.getUri().toString();
-                item.localFileUri = file.getUri().toString();
-                items.add(item);
+            GameStockItem item;
+            if (info != null) {
+                item = parseGameInfo(info);
+            } else {
+                String name = folder.dir.getName();
+                item = new GameStockItem();
+                item.title = name;
+                item.gameId = name;
             }
+            item.downloaded = true;
+            item.localDirUri = folder.dir.getUri().toString();
+            item.localFileNames= new String[folder.gameFiles.size()];
+            item.localFileUris = new String[folder.gameFiles.size()];
+            for (int a=0;a<item.localFileNames.length;a++) {
+item.localFileUris[a]=folder.gameFiles.get(a).getUri().toString();
+item.localFileNames[a]=folder.gameFiles.get(a).getName();
+            }
+            items.add(item);
         }
 
         return items;
@@ -239,9 +235,9 @@ class LocalGameRepository {
 
     private static class GameFolder {
         private final DocumentFile dir;
-        private final Collection<DocumentFile> gameFiles;
+        private final ArrayList<DocumentFile> gameFiles;
 
-        private GameFolder(DocumentFile dir, Collection<DocumentFile> gameFiles) {
+        private GameFolder(DocumentFile dir, ArrayList<DocumentFile> gameFiles) {
             this.dir = dir;
             this.gameFiles = gameFiles;
         }

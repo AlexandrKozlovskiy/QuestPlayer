@@ -208,7 +208,7 @@ public class GameStockActivity extends AppCompatActivity {
                 .setPositiveButton(game.downloaded ? getString(R.string.play) : getString(R.string.download), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        playOrDownloadGame(game);
+playOrDownloadGame(game);
                     }
                 })
                 .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
@@ -221,14 +221,26 @@ public class GameStockActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void playOrDownloadGame(GameStockItem game) {
+    private void playOrDownloadGame(final GameStockItem game) {
         if (game.downloaded) {
-            Intent data = new Intent();
+            final Intent data = new Intent();
             data.putExtra("gameTitle", game.title);
             data.putExtra("gameDirUri", game.localDirUri);
-            data.putExtra("gameFileUri", game.localFileUri);
-            setResult(RESULT_OK, data);
-            finish();
+            if(game.localFileNames.length >1) {
+                new AlertDialog.Builder(GameStockActivity.this).setTitle(getString(R.string.select_game_from_file,game.title)).setCancelable(false).setItems(game.localFileNames, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        data.putExtra("gameFileUri", game.localFileUris[which]);
+                        setResult(RESULT_OK, data);
+                        finish();
+                    }
+                }).show();
+            }
+            else {
+                data.putExtra("gameFileUri", game.localFileUris[0]);
+                setResult(RESULT_OK, data);
+                finish();
+            }
             return;
         }
 

@@ -6,7 +6,7 @@ class GameStockItem {
     String author = "";
     String portedBy = "";
     String version = "";
-    String title;
+    String title="";
     String lang = "";
     String player = "";
     String fileUrl = "";
@@ -16,5 +16,5 @@ class GameStockItem {
     String modDate = "";
     boolean downloaded;
     String localDirUri = "";
-    String localFileUri = "";
+    String[] localFileNames,localFileUris;
 }
