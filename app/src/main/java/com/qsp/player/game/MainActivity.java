@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -543,14 +544,16 @@ public class MainActivity extends AppCompatActivity implements PlayerView {
 
     private void startLoadFromFile() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.putExtra(Build.VERSION.SDK_INT <Build.VERSION_CODES.Q? "android.content.extra.SHOW_ADVANCED":"android.provider.extra.SHOW_ADVANCED", true);
         intent.setType("application/octet-stream");
         startActivityForResult(intent, REQUEST_CODE_LOAD_FROM_FILE);
     }
 
     private void startSaveToFile() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-        intent.setType("application/octet-stream");
+        intent.putExtra(Build.VERSION.SDK_INT <Build.VERSION_CODES.Q? "android.content.extra.SHOW_ADVANCED":"android.provider.extra.SHOW_ADVANCED", true);
         intent.putExtra(Intent.EXTRA_TITLE, viewState.gameTitle + ".sav");
+        intent.setType("application/octet-stream");
         startActivityForResult(intent, REQUEST_CODE_SAVE_TO_FILE);
     }
 

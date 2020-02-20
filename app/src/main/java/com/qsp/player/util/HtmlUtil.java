@@ -1,4 +1,4 @@
-package com.qsp.player.util;
+    package com.qsp.player.util;
 
 import android.util.Base64;
 import android.util.Log;
@@ -24,7 +24,7 @@ public final class HtmlUtil {
         }
 
         String result = encodeExec(html);
-        result = htmlizeLineBreaks(result);
+        result = replaceData(result);
 
         Document document = Jsoup.parse(result);
         Element body = document.body();
@@ -50,9 +50,10 @@ public final class HtmlUtil {
         return sb.toString();
     }
 
-    private static String htmlizeLineBreaks(String s) {
+    private static String replaceData(String s) {
         return s.replace("\n", "<br>")
-                .replace("\r", "");
+                .replace("\r", "<br>")
+                .replace("\\\"","'");
     }
 
     public static String convertQspStringToHtml(String str) {
@@ -60,7 +61,7 @@ public final class HtmlUtil {
             return "";
         }
 
-        return htmlizeLineBreaks(str);
+        return replaceData(str);
     }
 
     public static String removeHtmlTags(@NonNull String html) {
