@@ -81,7 +81,7 @@
     <string name="varsDesc">Доп. описание</string>
     <string name="varsDescContentDesc">Перейти к дополнительному описанию</string>
     <string name="userInput">Пользовательский ввод</string>
-    <string name="userInputContentDesc">Пользовательский ввод</string>
+    <string name="userInputContentDesc">Изменить значение переменной </string>
     <string name="play">Играть</string>
     <string name="download">Скачать</string>
     <string name="downloading">Скачивается...</string>

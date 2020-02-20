@@ -23,9 +23,8 @@ public final class HtmlUtil {
             return "";
         }
 
-        String result = encodeExec(html);
-        result = replaceData(result);
-
+        String result = replaceData(html);
+        result = encodeExec(result);
         Document document = Jsoup.parse(result);
         Element body = document.body();
         body.select("img").attr("style", "max-width: 100%;");

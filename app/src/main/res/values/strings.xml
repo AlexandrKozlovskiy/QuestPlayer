@@ -81,7 +81,7 @@
     <string name="varsDesc">Add. description</string>
     <string name="varsDescContentDesc">Go to additional description</string>
     <string name="userInput">User input</string>
-    <string name="userInputContentDesc">User input</string>
+    <string name="userInputContentDesc">Change value of variable </string>
     <string name="play">Play</string>
     <string name="download">Download</string>
     <string name="downloading">Downloading...</string>
